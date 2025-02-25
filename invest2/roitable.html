@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head> 
+    <style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        li {
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover {
+            background-color: #111;
+        }
+
+        .active {
+            background-color: #4CAF50;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.canvasjs.com/canvasjs.min.js"></script> 
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script> 
+    
+    <script>
+        window.onload = function () {
+            var startingInvestment = 1000;
+      
+
+
+}                          
+         
+    </script>
+    <script type="text/javascript" src="./app.js"></script> 
+</head>  
+<body>  
+    
+    <ul>
+        <li><a href="bingx.html">Bingx</a></li>
+        <li><a href="zig.html">Zig</a></li>
+        <li><a href="all.html">All</a></li>
+        <li><a class="active" href="roitable.html">ROI Table</a></li> <!-- Add a link to the ROI table page -->
+    </ul>
+    <table>
+        <thead>
+            <tr>
+                <th>Month/Year</th>
+                <th>ROI for B2</th>
+                <th>ROI for B4</th>
+                <th>ROI for B5</th>
+                <th>ROI for zlr</th>
+                <th>ROI for zhr</th>
+                <th>ROI for zshr</th>
+                <th>Total ROI</th> <!-- Added Total ROI column -->
+            </tr>
+        </thead>
+        <tbody id="roiTableBody">
+            <!-- Table body will be populated dynamically -->
+        </tbody>
+    </table>
+</body>
+</html>
