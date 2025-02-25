@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head> 
+	<style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        li {
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover {
+            background-color: #111;
+        }
+
+        .active {
+            background-color: #4CAF50;
+        }
+    </style>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="https://cdn.canvasjs.com/canvasjs.min.js"></script> 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script> 
+<script type="text/javascript">
+	
+window.onload = function () {
+	
+	var dataPoints = [ { x: new Date(2024, 1, 14), y: -0.345 },
+    { x: new Date(2024, 1, 15), y: -0.323 },
+    { x: new Date(2024, 1, 16), y: 0.64 },
+    { x: new Date(2024, 1, 17), y: -2.3843 },
+    { x: new Date(2024, 1, 18), y: 0.729 },
+    { x: new Date(2024, 1, 19), y: 1.59 },
+    { x: new Date(2024, 1, 20), y: 3.79 },
+    { x: new Date(2024, 1, 21), y: -0.2 },
+    { x: new Date(2024, 1, 22), y: 2.45 },
+    { x: new Date(2024, 1, 23), y: 2.989 },
+    { x: new Date(2024, 1, 27), y: 7.77 },
+    { x: new Date(2024, 1, 28), y: 8.632 },
+    { x: new Date(2024, 1, 29), y: 12.31 },
+    { x: new Date(2024, 2, 1), y: 12.015 },
+    { x: new Date(2024, 2, 2), y: 12.015 },
+    { x: new Date(2024, 2, 3), y: 13.68 },
+    { x: new Date(2024, 2, 4), y: 15.895 },
+    { x: new Date(2024, 2, 5), y: 25.624 },
+    { x: new Date(2024, 2, 7), y: 26.444 },
+    { x: new Date(2024, 2, 8), y: 28.517 },
+    { x: new Date(2024, 2, 9), y: 29.789 },
+    { x: new Date(2024, 2, 11), y: 31.231 },
+    { x: new Date(2024, 2, 12), y: 33.957 },
+    { x: new Date(2024, 2, 13), y: 34.543 },
+    { x: new Date(2024, 2, 14), y: 36.1 },
+    { x: new Date(2024, 2, 15), y: 29.464 },
+    { x: new Date(2024, 2, 16), y: 32.186 },
+    { x: new Date(2024, 2, 18), y: 33.217 },
+    { x: new Date(2024, 2, 19), y: 13.24 },
+    { x: new Date(2024, 2, 20), y: 36.24 },
+    { x: new Date(2024, 2, 21), y: 41.1 },
+    { x: new Date(2024, 2, 22), y: 33.877 },
+    { x: new Date(2024, 2, 23), y: 38.75 },
+    { x: new Date(2024, 2, 24), y: 41.553 },
+    { x: new Date(2024, 2, 25), y: 40.533 },
+    { x: new Date(2024, 2, 26), y: 41.02 },
+    { x: new Date(2024, 2, 27), y: 40.72 },
+    { x: new Date(2024, 2, 28), y: 40.84 },
+    { x: new Date(2024, 2, 29), y: 40.15 },
+    { x: new Date(2024, 2, 30), y: 40.29 },
+    { x: new Date(2024, 2, 31), y: 40.458 }];
+var chart = new CanvasJS.Chart("chartContainer",{
+	title:{
+		text:"B2 ROI"
+	}, axisX: {
+        title: "X Axis Title",
+        labelFontSize: 10, // Set font size for x-axis labels
+        interval: 1, // Show every x data point
+		labelAngle: -45 // Rotate x-axis labels by -45 degrees
+    },
+	data: [{
+		type: "line",
+		dataPoints : dataPoints,
+	}]
+});
+chart.render();
+$.getJSON("general.json", function(data) {  
+    $.each(data, function(index, value) {
+        // Assuming each value in data is an array [timestamp, numerical value]
+        dataPoints.push({ x: new Date(value[0]), y: value[1] });
+    }); 
+    chart.render();
+});
+
+	
+		$(document).ready(function() {
+$( "#subm").click(function(){
+	var akef= 1000;
+	var wd = 402;
+var lname = $("#lname").val();
+   var pn = parseFloat(lname,10);
+   pn = (((pn+wd) - akef)/akef)*100;
+   
+   var cdate= new Date($.now()) 
+var length = chart.options.data[0].dataPoints.length;
+	chart.options.title.text = "B2 ROI";
+	chart.options.data[0].dataPoints.push({ x: cdate,y: pn});
+	var sarr =[];
+	sarr[0]=$.now();
+	sarr[1]=pn;
+	
+	$.ajax
+    ({
+        type: "GET",
+        dataType : 'json',
+        async: false,
+        url: './save_json.php',
+        data: { data: JSON.stringify(sarr) },
+        success: function () {alert("Thanks!"); },
+        failure: function() {alert("Error!");}
+    });
+	chart.render();
+});
+});
+}
+</script>
+</head>  
+<body>  
+	<ul>
+		<li><a class="active" href="B2.html">B2</a></li>
+		<li><a  href="B4.html">B4</a></li>
+		<li><a href="B5.html">B5</a></li>
+		<li><a href="zlr.html">ZLR</a></li>
+        <li><a href="zhr.html">ZHR</a></li>
+        <li><a href="zhrs.html">ZHRS</a></li>
+        <li><a href="bingx.html">Bingx</a></li>
+        <li><a href="zig.html">Zig</a></li>
+        <li><a href="all.html">All</a></li>
+		<!-- Add more list items as needed -->
+	</ul>
+	<div id="chartContainer" style="width:100%; height:780px"></div>  
+
+
+<form action = "#myform">
+	
+	<div>
+	
+	B2  :      <input type = "number"step="0.01" id = "lname"> <br/>  <br/>
+	
+	<input type = "submit" id = "subm">
+	
+	</div>
+	</form>
+	
+</body>
+</html>
